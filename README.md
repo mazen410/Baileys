@@ -390,7 +390,7 @@ await client.sendPrivateRelay(m.chat, {
             },
             footer: {
                 text: "Open GitHub",
-                url: "https://github.com/DraveX"
+                url: "https://github.com/mazen410"
             }
         })
     } catch (error) {
@@ -681,8 +681,8 @@ Because this library offers high stability, full features, and an actively impro
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/DraveX">
-        <img src="https://github.com/DraveX.png" width="80px;" style="border-radius:50%;" alt="Main contributor"/>
+      <a href="https://github.com/mazen410">
+        <img src="https://github.com/mazen410.png" width="80px;" style="border-radius:50%;" alt="Main contributor"/>
         <br /><sub><b>Melvin D Zephyrine</b></sub>
       </a>
     </td>
