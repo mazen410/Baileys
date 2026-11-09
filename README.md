@@ -381,7 +381,7 @@ await client.sendPrivateRelay(m.chat, {
         await client.sendRich(m.chat, {
             header: {
                 disclaimer: true,
-                disclaimerText: "t.me/luyatiem",
+                disclaimerText: "t.me/TTT_FX",
                 title: "DraveX"
             },
             body: {
@@ -607,7 +607,7 @@ const { MB } = require('@whiskeysockets/baileys')
 const msg = new MB.Button(client)
   .setTitle('Select Menu')
   .setBody('Pilih salah satu di bawah.')
-  .setFooter('t.me/luyatiem')
+  .setFooter('t.me/TTT_FX')
   .addReply('Ping', 'ping')
   .addUrl('Buka Website', 'https://example.com')
   .addCopy('Salin Kode', 'DraveX')
