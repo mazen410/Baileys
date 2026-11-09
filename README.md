@@ -142,14 +142,14 @@ console.log("Ur pairing code : " + code);
 // relayMessage — sends a raw message object
 (async () => {
 	await client.relayMessage(m.chat, {
-		conversation: 'XvnSynC'
+		conversation: 'DraveX'
 	});
 })();
 
 // sendMessage — the standard way to send a message
 (async () => {
 	await client.sendMessage(m.chat, {
-		text: 'XvnSynC'
+		text: 'DraveX'
 	});
 })();
 ```
@@ -179,7 +179,7 @@ await client.sendPrivateRelay(m.chat, {
         const result = await client.sendPrivateRelay(
             m.chat,
             {
-                conversation: "XvnSynC"
+                conversation: "DraveX"
             },
             {
                 mode: "include",
@@ -205,7 +205,7 @@ await client.sendPrivateRelay(m.chat, {
         const result = await client.sendPrivateRelay(
             m.chat,
             {
-                conversation: "XvnSynC"
+                conversation: "DraveX"
             },
             {
                 mode: "exclude",
@@ -351,7 +351,7 @@ await client.sendPrivateRelay(m.chat, {
 (async () => {
 	await client.relayMessage(m.chat, {
 		extendedTextMessage: {
-			text: 'XvnSynC'
+			text: 'DraveX'
 		}
 	}, {
 		ptcp: true
@@ -364,7 +364,7 @@ await client.sendPrivateRelay(m.chat, {
 ```javascript
 (async () => {
 	await client.sendMessage(m.chat, {
-		text: 'XvnSynC'
+		text: 'DraveX'
 	}, {
 		ptcp: true
 	});
@@ -382,7 +382,7 @@ await client.sendPrivateRelay(m.chat, {
             header: {
                 disclaimer: true,
                 disclaimerText: "t.me/luyatiem",
-                title: "XvnSynC"
+                title: "DraveX"
             },
             body: {
                 title: "Select Option",
@@ -390,7 +390,7 @@ await client.sendPrivateRelay(m.chat, {
             },
             footer: {
                 text: "Open GitHub",
-                url: "https://github.com/xvnsync"
+                url: "https://github.com/DraveX"
             }
         })
     } catch (error) {
@@ -459,7 +459,7 @@ await client.editRich(jid, key, content)
 
     await client.editRich(target, loading.key, {
         sections: [
-            textSection('# XvnSynC'),
+            textSection('# DraveX'),
             copySection('https://t.me/luyatiem')
         ]
     });
@@ -501,7 +501,7 @@ Pass `{ html: '...' }` to edit a message into an HTML GenAI primitive — the sa
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     await client.editRich(m.chat, loading.key, {
-        title: 'XvnSynC',
+        title: 'DraveX',
         html: `
             <div>
                 <h2>Hello, World!</h2>
@@ -538,7 +538,7 @@ This also works the other way around — editing a message that was originally s
             <div>
                 <h2>Hello, World!</h2>
                 <p>This is an <b>HTML formatted</b> message.</p>
-                <p>Welcome to <a href="https://t.me/aboutvin7x">XvnSynC</a>.</p>
+                <p>Welcome to <a href="https://t.me/aboutvin7x">DraveX</a>.</p>
             </div>
         `)
     } catch (error) {
@@ -578,7 +578,7 @@ const {
 const { MB } = require('@whiskeysockets/baileys')
 
 const rich = new MB.AIRich(sock)
-  .setTitle('XvnSynC')
+  .setTitle('DraveX')
   .setFooter('Dibuat dengan AIRich')
   .addText('Halo! Ini respons rich.')
   .addCode('javascript', `console.log('Halo Melvin')`)
@@ -610,7 +610,7 @@ const msg = new MB.Button(client)
   .setFooter('t.me/luyatiem')
   .addReply('Ping', 'ping')
   .addUrl('Buka Website', 'https://example.com')
-  .addCopy('Salin Kode', 'XVNSYNC')
+  .addCopy('Salin Kode', 'DraveX')
 
 await msg.send(m.chat)
 ```
@@ -625,7 +625,7 @@ await msg.send(m.chat)
 const { MB } = require('@whiskeysockets/baileys')
 
 const message = new MB.ButtonV2(client)
-  .setTitle('XvnSynC')
+  .setTitle('DraveX')
   .setSubtitle('WhatsApp Bot')
   .setBody('Pilih satu tindakan.')
   .setFooter('Melvin Baileys')
@@ -681,8 +681,8 @@ Because this library offers high stability, full features, and an actively impro
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/xvnsync">
-        <img src="https://github.com/xvnsync.png" width="80px;" style="border-radius:50%;" alt="Main contributor"/>
+      <a href="https://github.com/DraveX">
+        <img src="https://github.com/DraveX.png" width="80px;" style="border-radius:50%;" alt="Main contributor"/>
         <br /><sub><b>Melvin D Zephyrine</b></sub>
       </a>
     </td>
@@ -708,5 +708,5 @@ Have questions, suggestions, or need help with this project? Feel free to reach 
 </p>
 
 <p align="center">
-  <sub>Developed and maintained by <a href="https://github.com/xvnsync">Melvin D Zephyrine</a>.</sub>
+  <sub>Developed and maintained by <a href="https://github.com/DraveX">Melvin D Zephyrine</a>.</sub>
 </p>
