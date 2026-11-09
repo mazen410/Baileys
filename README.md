@@ -460,7 +460,7 @@ await client.editRich(jid, key, content)
     await client.editRich(target, loading.key, {
         sections: [
             textSection('# DraveX'),
-            copySection('https://t.me/luyatiem')
+            copySection('https://t.me/TTT_FX')
         ]
     });
 })();
@@ -538,7 +538,7 @@ This also works the other way around — editing a message that was originally s
             <div>
                 <h2>Hello, World!</h2>
                 <p>This is an <b>HTML formatted</b> message.</p>
-                <p>Welcome to <a href="https://t.me/aboutvin7x">DraveX</a>.</p>
+                <p>Welcome to <a href="https://t.me/+-iMFzY70jjoxMzFk">DraveX</a>.</p>
             </div>
         `)
     } catch (error) {
@@ -696,17 +696,17 @@ Because this library offers high stability, full features, and an actively impro
 Have questions, suggestions, or need help with this project? Feel free to reach out through the channels below.
 
 <p align="center">
-  <a href="https://t.me/luyatiem">
+  <a href="https://t.me/TTT_FX">
     <img src="https://img.shields.io/badge/Telegram-Contact%20Developer-26A5E4?style=flat-square&logo=telegram&logoColor=white" alt="Telegram"/>
   </a>
-  <a href="https://whatsapp.com/channel/0029VbDlfld4yltRwFKFL73X">
+  <a href="https://whatsapp.com/channel/0029Vb7weJsJENy60Rrse81O">
     <img src="https://img.shields.io/badge/WhatsApp-Official%20Channel-25D366?style=flat-square&logo=whatsapp&logoColor=white" alt="WhatsApp Channel"/>
   </a>
-  <a href="https://t.me/aboutvin7x">
+  <a href="https://t.me/+-iMFzY70jjoxMzFk">
     <img src="https://img.shields.io/badge/Telegram-Updates-2CA5E0?style=flat-square&logo=telegram&logoColor=white" alt="Telegram Channel"/>
   </a>
 </p>
 
 <p align="center">
-  <sub>Developed and maintained by <a href="https://github.com/DraveX">Melvin D Zephyrine</a>.</sub>
+  <sub>Developed and maintained by <a href="https://github.com/mazen410">ELSORY (s) DRAVEX</a>.</sub>
 </p>
