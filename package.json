@@ -13,7 +13,7 @@
         "url": "git+https://github.com/mazen410/Baileys.git"
     },
     "license": "MIT",
-    "author": "VinnxsynC",
+    "author": "DraveX",
     "main": "lib/index.js",
     "files": [
         "lib/**/*",
