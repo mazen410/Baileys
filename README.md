@@ -1,4 +1,4 @@
-# Elsory BAILEYS
+# ELSORY BAILEYS
 
 <p align="center">
   <img src="https://d.top4top.io/p_3891zdxjb1.jpg" width="250"/>
