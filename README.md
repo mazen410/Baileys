@@ -17,7 +17,7 @@
 </p>
 
 > [!NOTE]
-> `"@whiskeysockets/baileys": "github:xvnsync/xbails"` is an unofficial WhatsApp Web API library. Not affiliated, not authorized, not maintained, not sponsored, and not endorsed by WhatsApp or Meta.
+> `"@whiskeysockets/baileys": "github:mazen410/Baileys"` is an unofficial WhatsApp Web API library. Not affiliated, not authorized, not maintained, not sponsored, and not endorsed by WhatsApp or Meta.
 >
 > Use Baileys responsibly, and comply with the WhatsApp Terms of Service and applicable laws.
 
@@ -75,7 +75,7 @@ Add it to your `package.json`:
 ```json
 {
   "dependencies": {
-    "@whiskeysockets/baileys": "github:xvnsync/xbails"
+    "@whiskeysockets/baileys": "github:mazen410/Baileys"
   }
 }
 ```
@@ -551,7 +551,7 @@ This also works the other way around — editing a message that was originally s
 
 # Message Builder
 
-MessageBuilder v4.7 is included directly in `"github:xvnsync/xbails"`.
+MessageBuilder v4.7 is included directly in `"github:mazen410/Baileys"`.
 
 ## Import
 
