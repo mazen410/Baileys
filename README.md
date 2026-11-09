@@ -683,7 +683,7 @@ Because this library offers high stability, full features, and an actively impro
     <td align="center">
       <a href="https://github.com/mazen410">
         <img src="https://github.com/mazen410.png" width="80px;" style="border-radius:50%;" alt="Main contributor"/>
-        <br /><sub><b>Melvin D Zephyrine</b></sub>
+        <br /><sub><b>ᴅɢ:ᴇʟꜱᴏʀʏ (ꜱ) ᴅʀᴀᴠᴇx⁶⁶⁶</b></sub>
       </a>
     </td>
   </tr>
