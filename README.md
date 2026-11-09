@@ -1,443 +1,712 @@
 # Elsory BAILEYS
 
 <p align="center">
-  <img src="https://d.top4top.io/p_3891zdxjb1.jpg" alt="D R A V E X - B U G" />
+  <img src="https://d.top4top.io/p_3891zdxjb1.jpg" width="250"/>
 </p>
 
-KASHMIRI  is an open-source library designed to help developers build automation solutions and integrations with WhatsApp efficiently and directly. Using websocket technology without the need for a browser, this library supports a wide range of features such as message management, chat handling, group administration, as well as interactive messages and action buttons for a more dynamic user experience.
+<h1 align="center">WhatsApp Baileys</h1>
 
-Actively developed and maintained, KASHMIRI Baileys continuously receives updates to enhance stability and performance. One of the main focuses is to improve the pairing and authentication processes to be more stable and secure. Pairing features can be customized with your own codes, making the process more reliable and less prone to interruptions.
+<p align="center">
+  Open-source library for building fast, stable WhatsApp automation and integrations over WebSocket — no browser required.
+</p>
 
-This library is highly suitable for building business bots, chat automation systems, customer service solutions, and various other communication automation applications that require high stability and comprehensive features. With a lightweight and modular design, KASHMIRI Baileys is easy to integrate into different systems and platforms.
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-%3E%3D20-339933?logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/license-MIT-blue" />
+  <img src="https://img.shields.io/badge/multi--device-supported-success" />
+</p>
 
----
-
-### Main Features and Advantages
-
-- Supports automatic and custom pairing processes
-- Fixes previous pairing issues that often caused failures or disconnections
-- Supports interactive messages, action buttons, and dynamic menus
-- Efficient automatic session management for reliable operation
-- Compatible with the latest multi-device features from WhatsApp
-- Lightweight, stable, and easy to integrate into various systems
-- Suitable for developing bots, automation, and complete communication solutions
-- Comprehensive documentation and example codes to facilitate development
+> [!NOTE]
+> `"@whiskeysockets/baileys": "github:xvnsync/xbails"` is an unofficial WhatsApp Web API library. Not affiliated, not authorized, not maintained, not sponsored, and not endorsed by WhatsApp or Meta.
+>
+> Use Baileys responsibly, and comply with the WhatsApp Terms of Service and applicable laws.
 
 ---
 
-## Getting Started
+# Table of Contents
 
-Begin by installing the library via your preferred package manager, then follow the provided configuration guide. You can also utilize the ready-made example codes to understand how the features work. Use session storage and interactive messaging features to build complete, stable solutions tailored to your business or project needs.
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Import](#import)
+- [Quick Start](#quick-start)
+  - [With QR Code](#with-qr-code)
+  - [With Pairing Code](#with-pairing-code)
+- [Sending Message](#sending-message)
+  - [Generic Send / Relay](#generic-send--relay)
+  - [sendPrivateRelay](#sendprivaterelay)
+  - [Simple Senders](#simple-senders)
+  - [Ban Checker](#ban-checker)
+  - [Send Message with Participant](#sending-message-with-participant)
+  - [Send Rich](#send-rich)
+  - [Edit Rich](#edit-rich)
+  - [Send Html](#send-html)
+- [Message Builder](#message-builder)
+  - [Import](#import-1)
+  - [Example](#example)
+- [Button](#button)
+  - [Quick Reply + URL + Copy](#quick-reply--url--copy)
+- [ButtonV2](#buttonv2)
+- [Carousel](#carousel)
+- [Why Choose WhatsApp Baileys?](#why-choose-whatsapp-baileys)
+- [Contributors](#contributors)
+- [Contact & Support](#contact--support)
 
 ---
 
-## Add Function ( Simple code )
+# Requirements
 
-### Label Group
-Tag/Label Member Group
+- Node.js **>= 20**
+- Optional peer dependencies depending on the features you use:
+  - `sharp` or `jimp` for image processing
+  - `link-preview-js` for link previews
+  - `audio-decode` for audio waveform handling
+  - `fluent-ffmpeg` for frame preview video, MessageBuilder Toolkit.getMp4Preview
 
-```javascript
-sock.setLabelGroup(jid, string)
+---
+
+# Installation
+
+```bash
+npm install @whiskeysockets/baileys
 ```
----
-### Check ID Channel 
-Get ID Channel From Url
 
-```javascript
-sock.newsletterFromUrl(url)
-```
-Result JSON
+Add it to your `package.json`:
+
 ```json
 {
-  "name": "Name Channel",
-  "id": "Channel ID",
-  "state": "Status Channel",
-  "subscribers": "Followers",
-  "verification": "UNVERIFIED",
-  "creation_time": 1728547155,
-  "description": "Description Channel"
+  "dependencies": {
+    "@whiskeysockets/baileys": "github:xvnsync/xbails"
+  }
 }
 ```
----
-### Check banned number
-You can see the status of blocked numbers here 
 
-```javascript
-sock.checkWhatsApp(jid)
-```
 ---
 
-## SendMessage Documentation
-
-### Status Mention Group & Private Message
-Send Status Mention Group/Private Chat
+# Import
 
 ```javascript
-await sock.sendStatusMention(content, jid);
+const {
+  default: makeWASocket,
+  // Other Options
+} = require('@whiskeysockets/baileys');
 ```
 
-### Status Group Message V2
-Send Group Status With Version 2 
+---
+
+# Quick Start
+
+## With QR Code
 
 ```javascript
-await sock.sendMessage(jid, {
-     groupStatusMessage: {
-          text: "Hello World"
-     }
+const {
+  default: makeWASocket,
+  Browsers
+  // Other Options
+} = require('@whiskeysockets/baileys');
+
+const client = makeWASocket({
+  browser: Browsers.ubuntu('Chrome'),
+  printQRInTerminal: true
 });
 ```
 
-### Album Message (Multiple Images)
-Send multiple images in a single album message:
+## With Pairing Code
 
 ```javascript
-await sock.sendMessage(jid, { 
-    albumMessage: [
-        { image: cihuy, caption: "Foto pertama" },
-        { image: { url: "URL IMAGE" }, caption: "hy }
-    ] 
-}, { quoted: m });
-```
+const {
+  default: makeWASocket,
+  fetchLatestWAWebVersion,
+  Browsers
+} = require('@whiskeysockets/baileys');
 
-### Event Message
-Create and send WhatsApp event invitations:
+const client = makeWASocket({
+  browser: Browsers.ubuntu('Chrome'),
+  printQRInTerminal: false,
+  version: fetchLatestWAWebVersion(),
+  auth: state
+});
 
-```javascript
-await sock.sendMessage(jid, { 
-    eventMessage: { 
-        isCanceled: false, 
-        name: "Hello World", 
-        description: "kashmiribailey", 
-        location: { 
-            degreesLatitude: 0, 
-            degreesLongitude: 0, 
-            name: "rowrrrr" 
-        }, 
-        joinLink: "https://call.whatsapp.com/video/saweitt", 
-        startTime: "1763019000", 
-        endTime: "1763026200", 
-        extraGuestsAllowed: false 
-    } 
-}, { quoted: m });
-```
+const number = "628XXXXX";
+const code = await client.requestPairingCode(number.trim()); // Use (number, "XXXXXXXX") for custom pairing
 
-### Poll Result Message
-Display poll results with vote counts:
-
-```javascript
-await sock.sendMessage(jid, { 
-    pollResultMessage: { 
-        name: "Hello World", 
-        pollVotes: [
-            {
-                optionName: "TEST 1",
-                optionVoteCount: "112233"
-            },
-            {
-                optionName: "TEST 2",
-                optionVoteCount: "1"
-            }
-        ] 
-    } 
-}, { quoted: m });
-```
-
-### Simple Interactive Message
-Send basic interactive messages with copy button functionality:
-
-```javascript
-await sock.sendMessage(jid, {
-    interactiveMessage: {
-        header: "Hello World",
-        title: "Hello World",
-        footer: "KASHMIRI Baileys",
-        buttons: [
-            {
-                name: "cta_copy",
-                buttonParamsJson: JSON.stringify({
-                    display_text: "copy code",
-                    id: "123456789",              
-                    copy_code: "ABC123XYZ"
-                })
-            }
-        ]
-    }
-}, { quoted: m });
-```
-
-### Interactive Message with Native Flow
-Send interactive messages with buttons, copy actions, and native flow features:
-
-```javascript
-await sock.sendMessage(jid, {    
-    interactiveMessage: {      
-        header: "Hello World",
-        title: "Hello World",      
-        footer: "KASHMIRIBOTSINC Baileys",      
-        image: { url: "https://files.catbox.moe/tjpzcl.jpg" },      
-        nativeFlowMessage: {        
-            messageParamsJson: JSON.stringify({          
-                limited_time_offer: {            
-                    text: "idk hummmm?",            
-                    url: "https://t.me/KASHMIRIBOTSINC",            
-                    copy_code: "kashmiribailey",            
-                    expiration_time: Date.now() * 999          
-                },          
-                bottom_sheet: {            
-                    in_thread_buttons_limit: 2,            
-                    divider_indices: [1, 2, 3, 4, 5, 999],            
-                    list_title: "KASHMIRI",            
-                    button_title: "KASHMIRI BAILEY"          
-                },          
-                tap_target_configuration: {            
-                    title: " KASHMIRIBOTSINc",            
-                    description: "kashmiribailey",          
-                    canonical_url: "https://t.me/KASHMIRIBOTSINC",            
-                    domain: "KASHMIRIBOTSINc.example.com",            
-                    button_index: 0          
-                }        
-            }),        
-            buttons: [          
-                {            
-                    name: "single_select",            
-                    buttonParamsJson: JSON.stringify({              
-                        has_multiple_buttons: true            
-                    })          
-                },          
-                {            
-                    name: "call_permission_request",            
-                    buttonParamsJson: JSON.stringify({              
-                        has_multiple_buttons: true            
-                    })          
-                },          
-                {            
-                    name: "single_select",            
-                    buttonParamsJson: JSON.stringify({              
-                        title: "Hello World",              
-                        sections: [                
-                            {                  
-                                title: "title",                  
-                                highlight_label: "label",                  
-                                rows: [                    
-                                    {                      
-                                        title: "kashmiribailey",                      
-                                        description: "love you",                      
-                                        id: "row_2"                    
-                                    }                  
-                                ]                
-                            }              
-                        ],              
-                        has_multiple_buttons: true            
-                    })          
-                },          
-                {            
-                    name: "cta_copy",            
-                    buttonParamsJson: JSON.stringify({              
-                        display_text: "copy code",              
-                        id: "123456789",              
-                        copy_code: "ABC123XYZ"            
-                    })          
-                }        
-            ]      
-        }    
-    }  
-}, { quoted: m });
-```
-
-### Interactive Message with Thumbnail
-Send interactive messages with thumbnail image and copy button:
-
-```javascript
-await sock.sendMessage(jid, {
-    interactiveMessage: {
-        header: "Hello World",
-        title: "Hello World",
-        footer: "kashmiribailey",
-        image: { url: "https://example.com/image.jpg" },
-        buttons: [
-            {
-                name: "cta_copy",
-                buttonParamsJson: JSON.stringify({
-                    display_text: "copy code",
-                    id: "123456789",
-                    copy_code: "ABC123XYZ"
-                })
-            }
-        ]
-    }
-}, { quoted: m });
-```
-
-### Product Message
-Send product catalog messages with buttons and merchant information:
-
-```javascript
-await sock.sendMessage(jid, {
-    productMessage: {
-        title: "PRODUCT EXACMPLE",
-        description: "PIC OF PRODUCT",
-        thumbnail: { url: "https://example.com/image.jpg" },
-        productId: "PROD001",
-        retailerId: "RETAIL001",
-        url: "https://example.com/product",
-        body: "Detail produCT",
-        footer: "PRICE",
-        priceAmount1000: 50000,
-        currencyCode: "USD",
-        buttons: [
-            {
-                name: "cta_url",
-                buttonParamsJson: JSON.stringify({
-                    display_text: "KASHMIRIBOTSINC",
-                    url: "https://example.com/buy"
-                })
-            }
-        ]
-    }
-}, { quoted: m });
-```
-
-### Interactive Message with Document Buffer
-Send interactive messages with document from buffer (file system) - **Note: Documents only support buffer**:
-
-```javascript
-await sock.sendMessage(jid, {
-    interactiveMessage: {
-        header: "Hello World",
-        title: "Hello World",
-        footer: "KASHMIRIBOTSINC Baileys",
-        document: fs.readFileSync("./package.json"),
-        mimetype: "application/pdf",
-        fileName: "KASHMIRIbaileys.pdf",
-        jpegThumbnail: fs.readFileSync("./document.jpeg"),
-        contextInfo: {
-            mentionedJid: [jid],
-            forwardingScore: 777,
-            isForwarded: false
-        },
-        externalAdReply: {
-            title: "KASHMIRI Bot",
-            body: "KASHMIRI team",
-            mediaType: 3,
-            thumbnailUrl: "https://example.com/image.jpg",
-            mediaUrl: " KASHMIRI ",
-            sourceUrl: "https://t.me/KASHMIRIBOTSINC",
-            showAdAttribution: true,
-            renderLargerThumbnail: false         
-        },
-        buttons: [
-            {
-                name: "cta_url",
-                buttonParamsJson: JSON.stringify({
-                    display_text: "Telegram",
-                    url: "https://t.me/KASHMIRIBOTSINC",
-                    merchant_url: "https://t.me/KASHMIRIBOTSINC"
-                })
-            }
-        ]
-    }
-}, { quoted: m });
-```
-
-### Interactive Message with Document Buffer (Simple)
-Send interactive messages with document from buffer (file system) without contextInfo and externalAdReply - **Note: Documents only support buffer**:
-
-```javascript
-await sock.sendMessage(jid, {
-    interactiveMessage: {
-        header: "Hello World",
-        title: "Hello World",
-        footer: "KASHMIRIBOTSINC Baileys",
-        document: fs.readFileSync("./package.json"),
-        mimetype: "application/pdf",
-        fileName: "KASHMIRIbaileys.pdf",
-        jpegThumbnail: fs.readFileSync("./document.jpeg"),
-        buttons: [
-            {
-                name: "cta_url",
-                buttonParamsJson: JSON.stringify({
-                    display_text: "Telegram",
-                    url: "https://t.me/KASHMIRIBOTSINC",
-                    merchant_url: "https://t.me/KASHMIRIBOTSINC"
-                })
-            }
-        ]
-    }
-}, { quoted: m });
-```
-
-### Request Payment Message
-Send payment request messages with custom background and sticker:
-
-```javascript
-let quotedType = m.quoted?.mtype || '';
-let quotedContent = JSON.stringify({ [quotedType]: m.quoted }, null, 2);
-
-await sock.sendMessage(jid, {
-    requestPaymentMessage: {
-        currency: "IDR",
-        amount: 10000000,
-        from: m.sender,
-        sticker: JSON.parse(quotedContent),
-        background: {
-            id: "100",
-            fileLength: "0",
-            width: 1000,
-            height: 1000,
-            mimetype: "image/webp",
-            placeholderArgb: 0xFF00FFFF,
-            textArgb: 0xFFFFFFFF,     
-            subtextArgb: 0xFFAA00FF   
-        }
-    }
-}, { quoted: m });
+console.log("Ur pairing code : " + code);
 ```
 
 ---
 
-## Why Choose KASHMIRI Baileys?
+# Sending Message
+
+## Generic Send / Relay
+
+```javascript
+// relayMessage — sends a raw message object
+(async () => {
+	await client.relayMessage(m.chat, {
+		conversation: 'XvnSynC'
+	});
+})();
+
+// sendMessage — the standard way to send a message
+(async () => {
+	await client.sendMessage(m.chat, {
+		text: 'XvnSynC'
+	});
+})();
+```
+
+
+
+## sendPrivateRelay
+
+`sendPrivateRelay` is available directly on the socket client. It sends a message using the private relay helper and accepts the same message payload and relay options as the underlying implementation.
+
+### Basic usage
+
+```javascript
+await client.sendPrivateRelay(m.chat, {
+    conversation: "Hello!"
+});
+```
+
+### Example with device filtering
+
+**Include mode**
+```javascript
+(async () => {
+    const target = "6281234567890@s.whatsapp.net"
+
+    try {
+        const result = await client.sendPrivateRelay(
+            m.chat,
+            {
+                conversation: "XvnSynC"
+            },
+            {
+                mode: "include",
+                target: [target],
+                deviceMode: "all",
+                hideDecryptFail: true
+            }
+        )
+
+        console.log("Private Relay sent:", result)
+    } catch (error) {
+        console.error("Private Relay failed:", error)
+    }
+})()
+```
+
+**Exclude mode**
+```javascript
+(async () => {
+    const target = "6281234567890@s.whatsapp.net"
+
+    try {
+        const result = await client.sendPrivateRelay(
+            m.chat,
+            {
+                conversation: "XvnSynC"
+            },
+            {
+                mode: "exclude",
+                target: [target],
+                deviceMode: "all",
+                hideDecryptFail: true
+            }
+        )
+
+        console.log("Private Relay sent:", result)
+    } catch (error) {
+        console.error("Private Relay failed:", error)
+    }
+})()
+```
+
+### Available options
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `messageId` | `string` | Generated automatically | Custom message ID |
+| `additionalAttributes` | `object` | `{}` | Extra message stanza attributes |
+| `useUserDevicesCache` | `boolean` | `true` | Use the device cache during recipient resolution |
+| `useCachedGroupMetadata` | `boolean` | `true` | Use cached group metadata when available |
+| `statusJidList` | `string[]` | — | Additional status recipients |
+| `additionalNodes` | `object[]` | — | Extra stanza nodes |
+| `targetMe` | `boolean` | — | Override filtering for the sender's own devices |
+| `mode` | `'include' \| 'exclude'` | `'exclude'` | Select matching or non-matching devices |
+| `target` | `string[]` | `[]` | Recipient JIDs, optionally including a device ID |
+| `hideDecryptFail` | `boolean` | `true` | Add the `decrypt-fail="hide"` attribute where applicable |
+| `deviceMode` | `'all' \| 'primary' \| 'secondary'` | `'all'` | Filter by primary or secondary device ID |
+
+### Compatibility notes
+
+- `sendPrivateRelay` is attached to each socket client, so call it as `client.sendPrivateRelay(jid, message, options)`.
+- The returned message ID indicates that the stanza was sent to the connection; it does not confirm that every intended recipient received or displayed it.
+- Recipient and device filtering does not guarantee a particular visibility outcome. Test with accounts and devices you control, and use it transparently and responsibly.
+- The helper uses internal Baileys connection methods. Retest it after updating the library because WhatsApp protocol changes may affect compatibility.
+
+## Simple Senders
+
+### Send Text
+
+```javascript
+(async () => {
+	await client.sendText(m.chat, 'Hi!', {
+		contextInfo: {
+			mentionedJid: [jid]
+		}
+	});
+})();
+```
+
+### Send Image
+
+```javascript
+(async () => {
+	await client.sendImage(m.chat, { url: './photo.jpg' }, 'image caption');
+})();
+```
+
+### Send Video
+
+```javascript
+(async () => {
+	await client.sendVideo(m.chat, { url: './clip.mp4' }, 'video caption');
+})();
+```
+
+### Send Audio
+
+```javascript
+(async () => {
+	await client.sendAudio(m.chat, { url: './clip.mp3' });
+})();
+```
+
+### Send Location
+
+```javascript
+(async () => {
+	await client.sendLocation(m.chat, 'Location name', -6.2, 106.8, 'https://maps.example', '1234567890');
+})();
+```
+
+### Send Poll
+
+```javascript
+(async () => {
+	await client.sendPoll(m.chat, 'Pick one', ['Option 1', 'Option 2', 'Option 3'], true);
+})();
+```
+
+### Send Quiz
+
+```javascript
+(async () => {
+	await client.sendQuiz(m.chat, 'Correct answer?', ['1', '2', '3'], '2');
+})();
+```
+
+## CheckBan
+
+`client.checkWA()` checks whether a WhatsApp phone number is active, banned, or restricted. It uses the built-in WhatsApp registration and ban-status checks.
+
+### Example
+
+```javascript
+(async () => {
+    try {
+        const number = '6281234567890'
+        const result = await client.checkWA(number)
+
+        console.log(JSON.stringify(result, null, 4))
+    } catch (error) {
+        console.error(JSON.stringify({
+            error: true,
+            message: error.message
+        }, null, 4))
+    }
+})()
+```
+
+### Result fields
+
+| Field | Description |
+| --- | --- |
+| `number` | Normalized phone number in international format |
+| `status` | `aktif`, `terbanned`, `diblokir`, `dibatasi_sementara`, or `error` |
+| `isBanned` | Whether the number is reported as banned |
+| `isNeedOfficialWa` | Whether the check indicates that the official WhatsApp app is required |
+| `banInfo` | Additional ban details when available; otherwise `null` |
+| `raw` | Original response data when the check returns additional details |
+
+> [!NOTE]
+> The result depends on WhatsApp's registration and support endpoints. Temporary network issues or changes to WhatsApp's APIs may affect the result, so it should not be treated as an official guarantee of account status.
+
+# Send Message with Participant
+
+`relayMessage`:
+
+```javascript
+(async () => {
+	await client.relayMessage(m.chat, {
+		extendedTextMessage: {
+			text: 'XvnSynC'
+		}
+	}, {
+		ptcp: true
+	});
+})();
+```
+
+`sendMessage`:
+
+```javascript
+(async () => {
+	await client.sendMessage(m.chat, {
+		text: 'XvnSynC'
+	}, {
+		ptcp: true
+	});
+})();
+```
+
+## Send Rich
+
+`sendRich` sends a rich response with an optional header image, action buttons, carousel cards, and an open-URL footer:
+
+```javascript
+(async () => {
+    try {
+        await client.sendRich(m.chat, {
+            header: {
+                disclaimer: true,
+                disclaimerText: "t.me/luyatiem",
+                title: "XvnSynC"
+            },
+            body: {
+                title: "Select Option",
+                buttons: ["Menu 1", "Menu 2"]
+            },
+            footer: {
+                text: "Open GitHub",
+                url: "https://github.com/xvnsync"
+            }
+        })
+    } catch (error) {
+        console.error(error)
+    }
+})()
+```
+
+## Edit Rich
+
+`editRich` edits a previously sent message in place using the standard WhatsApp "edit message" protocol (`protocolMessage` type `14`). It works with any message key, not just ones created by `sendRich` — including messages sent with `sendHtml`.
+
+```javascript
+await client.editRich(jid, key, content)
+```
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `jid` | `string` | Chat JID the original message was sent to |
+| `key` | `object` or `string` | The original message's key (`{ remoteJid, fromMe, id }`), or just its `id` |
+| `content` | `object` | New content, resolved in this order: `{ message: {...} }` (raw proto), `{ html: '<div>...' }` (same shortcut as `sendHtml`), or `sendRich`-style (`sections` / `header` / `body` / `footer`) |
+
+### Basic usage
+
+```javascript
+(async () => {
+    const target = m.chat;
+
+    function textSection(text) {
+        return {
+            __typename: 'GenAIUnifiedResponseSection',
+            view_model: {
+                __typename: 'GenAISingleLayoutViewModel',
+                primitive: {
+                    __typename: 'GenAIMarkdownTextUXPrimitive',
+                    text,
+                    inline_entities: []
+                }
+            }
+        };
+    }
+
+    function copySection(text) {
+        return {
+            __typename: 'GenAIUnifiedResponseSection',
+            view_model: {
+                __typename: 'GenAIAddonActionLayoutViewModel',
+                addon_action_type: 'COPY_TO_CLIPBOARD',
+                addon_action_alignment: 'END',
+                primitives: [
+                    {
+                        __typename: 'GenAIMarkdownTextUXPrimitive',
+                        text,
+                        inline_entities: []
+                    }
+                ]
+            }
+        };
+    }
+
+    const loading = await client.sendRich(target, {
+        text: '> ◦❒ Loading...'
+    });
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    await client.editRich(target, loading.key, {
+        sections: [
+            textSection('# XvnSynC'),
+            copySection('https://t.me/luyatiem')
+        ]
+    });
+})();
+```
+
+`sendRich` returns the sent message object, which already carries `.key` — pass that straight into `editRich` once your result is ready.
+
+### Inline edit via `editrich`
+
+`sendRich` also accepts an `editrich` field in its content. When present, it automatically sends the edit right after the original message, after an optional `delay` (ms):
+
+```javascript
+(async () => {
+    await client.sendRich(m.chat, {
+        header: { title: "> ◦❒ Processing..." },
+        editrich: {
+            delay: 1500,
+            header: { title: "> ◦❒ Done!" },
+            body: { buttons: ["OK"] }
+        }
+    })
+})()
+```
+
+Use the inline `editrich` field for a fixed delay; use `editRich` directly when the edit depends on an async result (uploads, API calls) rather than a timer.
+
+### Editing into an HTML message
+
+Pass `{ html: '...' }` to edit a message into an HTML GenAI primitive — the same content shape `sendHtml` accepts:
+
+```javascript
+// Contoh 1: sendRich -> editRich(html)
+(async () => {
+    const loading = await client.sendRich(m.chat, {
+        text: '> ◦❒ Loading....'
+    });
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    await client.editRich(m.chat, loading.key, {
+        title: 'XvnSynC',
+        html: `
+            <div>
+                <h2>Hello, World!</h2>
+                <p>This is an <b>HTML formatted</b> message.</p>
+            </div>
+        `
+    });
+})();
+
+// Contoh 2: sendHtml -> editRich(html)
+(async () => {
+    const msg = await client.sendHtml(m.chat, '<h1>Loading...</h1>');
+
+    await new Promise(r => setTimeout(r, 2000));
+
+    await client.editRich(m.chat, msg.key, {
+        html: '<h1>Berhasil di-edit!</h1>'
+    });
+})();
+```
+
+This also works the other way around — editing a message that was originally sent with `sendHtml` back into a `sendRich`-style card, since `editRich` is not tied to how the original message was built; only the message `key` matters.
+
+---
+
+## Send HTML
+
+`sendHtml` sends a message using HTML formatting, allowing you to customize the message content with HTML elements:
+
+```javascript
+(async () => {
+    try {
+        await client.sendHtml(m.chat, `
+            <div>
+                <h2>Hello, World!</h2>
+                <p>This is an <b>HTML formatted</b> message.</p>
+                <p>Welcome to <a href="https://t.me/aboutvin7x">XvnSynC</a>.</p>
+            </div>
+        `)
+    } catch (error) {
+        console.error(error)
+    }
+})()
+```
+
+---
+
+# Message Builder
+
+MessageBuilder v4.7 is included directly in `"github:xvnsync/xbails"`.
+
+## Import
+
+```javascript
+const {
+  VERSION,
+  Button,
+  ButtonV2,
+  Carousel,
+  AIRich,
+  Toolkit,
+  MB
+} = require('@whiskeysockets/baileys');
+```
+
+> [!NOTE]
+> MessageBuilder is integrated. You don't need to install `baileys-mbuilder` separately.
+
+---
+
+## Example
+
+```javascript
+const { MB } = require('@whiskeysockets/baileys')
+
+const rich = new MB.AIRich(sock)
+  .setTitle('XvnSynC')
+  .setFooter('Dibuat dengan AIRich')
+  .addText('Halo! Ini respons rich.')
+  .addCode('javascript', `console.log('Halo Melvin')`)
+  .addTable([
+    ['Fitur', 'Status'],
+    ['Button', 'Tersedia'],
+    ['Carousel', 'Tersedia'],
+    ['AIRich', 'Eksperimental']
+  ])
+  .addSuggest(['List Menu', 'Help', 'About Melvin'])
+
+await rich.send(jid)
+```
+
+---
+
+## Button
+
+Builder `Button` is used for native-flow interactive messages.
+
+### Quick Reply + URL + Copy
+
+```js
+const { MB } = require('@whiskeysockets/baileys')
+
+const msg = new MB.Button(client)
+  .setTitle('Select Menu')
+  .setBody('Pilih salah satu di bawah.')
+  .setFooter('t.me/luyatiem')
+  .addReply('Ping', 'ping')
+  .addUrl('Buka Website', 'https://example.com')
+  .addCopy('Salin Kode', 'XVNSYNC')
+
+await msg.send(m.chat)
+```
+
+---
+
+## ButtonV2
+
+`ButtonV2` provides a simpler classic button builder.
+
+```javascript
+const { MB } = require('@whiskeysockets/baileys')
+
+const message = new MB.ButtonV2(client)
+  .setTitle('XvnSynC')
+  .setSubtitle('WhatsApp Bot')
+  .setBody('Pilih satu tindakan.')
+  .setFooter('Melvin Baileys')
+  .setThumbnail('https://example.com/xxx.jpg')
+  .addButton('Menu', 'menu')
+  .addButton('Ping', 'ping')
+
+await message.send(m.chat)
+```
+
+---
+
+## Carousel
+
+Carousel cards can be created from `Button.toCard()` and then submitted to `Carousel`.
+
+```javascript
+const { MB } = require('@whiskeysockets/baileys')
+
+const card1 = await new MB.Button(client)
+  .setImage('https://example.com/card1.jpg')
+  .setBody('Kartu pertama')
+  .addReply('Pilih', 'card_1')
+  .toCard()
+
+const card2 = await new MB.Button(client)
+  .setImage('https://example.com/card2.jpg')
+  .setBody('Kartu kedua')
+  .addUrl('Buka', 'https://example.com')
+  .toCard()
+
+const carousel = new MB.Carousel(client)
+  .setBody('Pilih salah satu kartu di bawah.')
+  .setFooter('Melvin Carousel')
+  .addCard([card1, card2])
+
+await carousel.send(jid)
+```
+
+> [!IMPORTANT]
+> Each carousel card must have an image or video media attachment in its header.
+
+---
+
+# Why Choose WhatsApp Baileys?
 
 Because this library offers high stability, full features, and an actively improved pairing process. It is ideal for developers aiming to create professional and secure WhatsApp automation solutions. Support for the latest WhatsApp features ensures compatibility with platform updates.
 
 ---
 
-### Technical Notes
-
-- Supports custom pairing codes that are stable and secure
-- Fixes previous issues related to pairing and authentication
-- Features interactive messages and action buttons for dynamic menu creation
-- Automatic and efficient session management for long-term stability
-- Compatible with the latest multi-device features from WhatsApp
-- Easy to integrate and customize based on your needs
-- Perfect for developing bots, customer service automation, and other communication applications
-- Has 1 newsletter follow, only the developer's telegram channel: [TELEGRAM Channel](https://t.me/KASHMIRIBOTSINC)
-
----
-
-For complete documentation, installation guides, and implementation examples, please visit the official repository and community forums. We continually update and improve KASHMIRIBOTSINC Baileys to meet the needs of developers and users of modern WhatsApp automation solutions.
-
-**Thank you for choosing KASHMIRIBOTSINC Baileys as your WhatsApp automation solution!**
-
----
-
-### Contact Developer
-
-For questions, support, or collaboration, feel free to contact the developer:
-
-- **Telegram**: [Telegram Contact](https://t.me/KASHMIRIBOTSINC)
-
-### 🙌 Contributors outside the Baileys code
-
-Thanks to the following awesome contributors who help improve this project 💖
+# Contributors
 
 <table>
   <tr>
     <td align="center">
-      <a href="https://t.me/KASHMIRIBOTSINC">
-        <img src="https://files.catbox.moe/tjpzcl.jpg" width="80px;" style="border-radius:50%;" alt="Contributor"/>
-        <br />
-        <sub><b>KASHMIRI</b></sub>
+      <a href="https://github.com/xvnsync">
+        <img src="https://github.com/xvnsync.png" width="80px;" style="border-radius:50%;" alt="Main contributor"/>
+        <br /><sub><b>Melvin D Zephyrine</b></sub>
       </a>
     </td>
   </tr>
 </table>
+
+---
+
+## Contact & Support
+
+Have questions, suggestions, or need help with this project? Feel free to reach out through the channels below.
+
+<p align="center">
+  <a href="https://t.me/luyatiem">
+    <img src="https://img.shields.io/badge/Telegram-Contact%20Developer-26A5E4?style=flat-square&logo=telegram&logoColor=white" alt="Telegram"/>
+  </a>
+  <a href="https://whatsapp.com/channel/0029VbDlfld4yltRwFKFL73X">
+    <img src="https://img.shields.io/badge/WhatsApp-Official%20Channel-25D366?style=flat-square&logo=whatsapp&logoColor=white" alt="WhatsApp Channel"/>
+  </a>
+  <a href="https://t.me/aboutvin7x">
+    <img src="https://img.shields.io/badge/Telegram-Updates-2CA5E0?style=flat-square&logo=telegram&logoColor=white" alt="Telegram Channel"/>
+  </a>
+</p>
+
+<p align="center">
+  <sub>Developed and maintained by <a href="https://github.com/xvnsync">Melvin D Zephyrine</a>.</sub>
+</p>
